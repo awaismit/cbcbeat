@@ -1,6 +1,7 @@
 """
 Unit tests for various types of solvers for cardiac cell models.
 """
+from __future__ import division
 
 __author__ = "Marie E. Rognes (meg@simula.no), 2013"
 __all__ = ["TestBasicSingleCellSolver",
@@ -61,18 +62,24 @@ class TestBasicSingleCellSolver(unittest.TestCase):
         else:
             info("Missing references for %r, %r" % (Model, theta))
 
-    def xtest_default_basic_single_cell_solver(self):
+    def test_default_basic_single_cell_solver(self):
         "Test basic single cell solver."
+        if MPI.num_processes() > 1:
+            return
         for Model in supported_cell_models:
             self._compare_solve_step(Model)
 
-    def xtest_default_basic_single_cell_solver_be(self):
+    def test_default_basic_single_cell_solver_be(self):
         "Test basic single cell solver with Backward Euler."
+        if MPI.num_processes() > 1:
+            return
         for Model in supported_cell_models:
             self._compare_solve_step(Model, theta=1.0)
 
-    def xtest_default_basic_single_cell_solver_fe(self):
+    def test_default_basic_single_cell_solver_fe(self):
         "Test basic single cell solver with Forward Euler."
+        if MPI.num_processes() > 1:
+            return
         for Model in supported_cell_models:
             self._compare_solve_step(Model, theta=0.0)
 
@@ -108,18 +115,18 @@ class TestPointIntegralSolver(unittest.TestCase):
                             },
 
                            Tentusscher_2004_mcell:
-                           {BackwardEuler: (15, -85.88998025328269),
-                            CrankNicolson: (15, -85.98955508667491),
-                            ForwardEuler:  (15, -86.089303968089),
+                           {BackwardEuler: (15, -85.89745525156506),
+                            CrankNicolson: (15, -85.99685674414921),
+                            ForwardEuler:  (15, -86.09643254164848),
                             RK4:  (15, "nan"),
-                            ESDIRK3:  (15, -85.98951790002069),
-                            ESDIRK4:  (15, -85.98951789900272),
+                            ESDIRK3:  (15, -85.99681796148224),
+                            ESDIRK4:  (15, -85.99681796046603),
                             }
                            }
         
     def _setup_solver(self, Model, Scheme, mesh, time, stim=None, params=None):
         # Create model instance
-        model = Model(params)
+        model = Model(params=params)
 
         # Initialize time and stimulus (note t=time construction!)
         if stim is None:
@@ -172,10 +179,38 @@ class TestPointIntegralSolver(unittest.TestCase):
             info("Missing references for %s, %s: value is %g"
                  % (Model, Scheme, vs.vector()[0]))
 
+        # Use Constant Parameters
+        params = Model.default_parameters()
+        if params:
+            for param_name in params.keys():
+                value = params[param_name]
+                params[param_name] = Constant(value)
+
+            time.assign(0.0)
+            solver = self._setup_solver(Model, Scheme, mesh, time, params=params)
+
+            solver.step(next_dt)
+            solver.step(next_dt)
+
+            vs = solver.scheme().solution()
+
+            if Model in self.references and Scheme in self.references[Model]:
+                ind, ref_value = self.references[Model][Scheme]
+                info("Value for %s, %s is %g"
+                     % (Model, Scheme, vs.vector()[ind]))
+                if ref_value != "nan":
+                    self.assertAlmostEqual(vs.vector()[ind], ref_value)
+            else:
+                info("Missing references for %s, %s: value is %g"
+                     % (Model, Scheme, vs.vector()[0]))
+
+
     def test_point_integral_solver(self):
+        if MPI.num_processes() > 1:
+            return
         mesh = UnitIntervalMesh(1)
         for Model in supported_cell_models:
-            for Scheme in [BackwardEuler, ForwardEuler, CrankNicolson,
+            for Scheme in [ForwardEuler, BackwardEuler, CrankNicolson,
                            RK4, ESDIRK3, ESDIRK4]:
                 self._compare_against_reference(Model, Scheme, mesh)
 
@@ -203,7 +238,8 @@ class TestPointIntegralSolver(unittest.TestCase):
         vertex_to_dof_map = vs.function_space().dofmap().vertex_to_dof_map(mesh)
         scheme.t().assign(0.0)
         
-        vs_array = vs.vector().array()
+        vs_array = np.zeros(mesh.num_vertices()*\
+                            vs.function_space().dofmap().num_entity_dofs(0))
         vs_array[vertex_to_dof_map] = vs.vector().array()
         output = [vs_array[ind_V]]
         time_output = [0.0]
@@ -237,8 +273,8 @@ class TestPointIntegralSolver(unittest.TestCase):
         #    Vm_reference-output[:-offset])/Vm_reference)**2))/len(Vm_reference)
 
 
-    def xtest_long_run_tentusscher(self):
-        mesh = UnitIntervalMesh(1)
+    def test_long_run_tentusscher(self):
+        mesh = UnitIntervalMesh(5)
         for Scheme, dt_org, abs_tol, rel_tol in [(BackwardEuler, 0.05, 0, 0),
                                                  (CrankNicolson, 0.1, 0, 1),
                                                  (ESDIRK3, 0.1, 0, 2),
