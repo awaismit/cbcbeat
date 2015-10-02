@@ -47,14 +47,14 @@ class TestBidomainSolversAdjoint(object):
 
         if Solver == BasicBidomainSolver:
             params.linear_variational_solver.linear_solver = \
-                            "gmres" if solver_type == "iterative" else "lu"
+                            "cg" if solver_type == "iterative" else "lu"
             params.linear_variational_solver.krylov_solver.relative_tolerance = 1e-12
             params.linear_variational_solver.preconditioner = 'ilu'
         else:
             params.linear_solver_type = solver_type
             params.enable_adjoint = enable_adjoint
             if solver_type == "iterative":
-                params.krylov_solver.relative_tolerance = 1e-12
+                params.petsc_krylov_solver.relative_tolerance = 1e-12
             else:
                 params.use_avg_u_constraint = True  # NOTE: In contrast to iterative
                     # solvers, the direct solver does not handle nullspaces consistently,
@@ -87,9 +87,9 @@ class TestBidomainSolversAdjoint(object):
     @adjoint
     @fast
     @parametrize(("Solver", "solver_type", "tol"), [
-        (BasicBidomainSolver, "direct", 0.),
-        (BasicBidomainSolver, "iterative", 0.),
-        (BidomainSolver, "direct", 1e-10),
+        (BasicBidomainSolver, "direct", 1e-16),
+        (BasicBidomainSolver, "iterative", 1e-16),
+        (BidomainSolver, "direct", 1e-16),
         (BidomainSolver, "iterative", 1e-10),  # NOTE: The replay is not exact because
             # dolfin-adjoint's overloaded Krylov method is not constent with DOLFIN's
             # (it orthogonalizes the rhs vector as an additional step)
