@@ -2,6 +2,7 @@
 Unit tests for various types of solvers for cardiac cell models.
 """
 
+from __future__ import print_function
 __author__ = "Marie E. Rognes (meg@simula.no), 2013"
 __all__ = ["TestBasicSingleCellSolverAdjoint"]
 
@@ -114,7 +115,7 @@ def basic_single_cell_closure(theta, Model):
         info_green("Computing gradient")
         dJdics = compute_gradient(J, Control(vs_))
         assert (dJdics is not None), "Gradient is None (#fail)."
-        print dJdics.vector().array()
+        print(dJdics.vector().array())
 
     @adjoint
     @slow
@@ -191,5 +192,5 @@ class TestBasicSingleCellSolverAdjoint(object):
 for theta, theta_name in ((0.0, "00"), (0.5, "05"), (1.0, "10")):
     for Model in (FitzHughNagumoManual, Tentusscher_2004_mcell):
         for func in basic_single_cell_closure(theta, Model):
-            method_name = func.func_name+"_theta_"+theta_name+"_"+Model.__name__
+            method_name = func.__name__+"_theta_"+theta_name+"_"+Model.__name__
             setattr(TestBasicSingleCellSolverAdjoint, method_name, func)

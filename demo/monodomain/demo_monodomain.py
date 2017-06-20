@@ -70,14 +70,14 @@ timer = Timer("XXX Forward solve") # Time the total solve
 
 # Solve!
 for (timestep, fields) in solver.solve(interval, dt):
-    print "(t_0, t_1) = (%g, %g)", timestep
+    print("(t_0, t_1) = (%g, %g)", timestep)
 
     # Extract the components of the field (vs_ at previous timestep,
     # current vs, current vur)
     (vs_, vs, vur) = fields
 
     # Print memory usage (just for the fun of it)
-    print memory_usage()
+    print(memory_usage())
 
 timer.stop()
 
@@ -88,5 +88,5 @@ plot(vs[1], title="1st state variable (s_0) at end time")
 # List times spent
 list_timings(TimingClear_keep, [TimingType_user])
 
-print "Success!"
+print("Success!")
 interactive()

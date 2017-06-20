@@ -15,6 +15,7 @@
 #
 # Recommend analyzing the outputs in serial
 
+from __future__ import print_function
 __author__ = "Johan Hake and Simon W. Funke (simon@simula.no)"
 
 # Modified by Marie E. Rognes (meg@simula.no), 2014
@@ -22,7 +23,7 @@ __author__ = "Johan Hake and Simon W. Funke (simon@simula.no)"
 try:
     import petsc4py
 except:
-    print "Cannot import petsc4py"
+    print("Cannot import petsc4py")
 
 from dolfin import *
 from cbcbeat import *
@@ -200,8 +201,8 @@ def run_splitting_solver(mesh, application_parameters):
     total_dofs = vs.function_space().dim()
     pde_dofs = V.dim()
     if MPI.rank(mpi_comm_world()) == 0:
-        print "Total degrees of freedom: ", total_dofs
-        print "PDE degrees of freedom: ", pde_dofs
+        print("Total degrees of freedom: ", total_dofs)
+        print("PDE degrees of freedom: ", pde_dofs)
 
     t0 = 0.0
 
@@ -246,7 +247,7 @@ def create_mesh(dx, refinements=0):
                      N(Lx/dx), N(Ly/dx), N(Lz/dx))
 
     for i in range(refinements):
-      print "Performing refinement", i+1
+      print("Performing refinement", i+1)
       mesh = refine(mesh, redistribute=False)
 
     return mesh
@@ -260,7 +261,7 @@ def forward(application_parameters):
 
     # Run solver
     vs = run_splitting_solver(mesh, application_parameters)
-    print "Results stored in %s" % application_parameters["casedir"]
+    print("Results stored in %s" % application_parameters["casedir"])
 
     return vs
 

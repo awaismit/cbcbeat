@@ -5,6 +5,7 @@ Section 2.4.1 p. 36 in Sundnes et al, 2006 (checked 2012-09-19), and
 check that maximal v/s values do not regress
 """
 
+from __future__ import print_function
 __author__ = "Marie E. Rognes (meg@simula.no), 2012--2013"
 __all__ = ["TestBasicSingleCellSolver"]
 
@@ -69,8 +70,8 @@ class TestBasicSingleCellSolver:
         v_max_reference = 2.6883308148064152e+01
         s_max_reference = 6.8660144687023219e+01
         tolerance = 1.e-14
-        print "max(v_values) %.16e" % max(v_values)
-        print "max(s_values) %.16e" % max(s_values)
+        print("max(v_values) %.16e" % max(v_values))
+        print("max(s_values) %.16e" % max(s_values))
         msg = "Maximal %s value does not match reference: diff is %.16e"
 
         v_diff = abs(max(v_values) - v_max_reference)

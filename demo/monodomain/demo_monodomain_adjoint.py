@@ -19,6 +19,7 @@
 
 
 # Import the cbcbeat module
+from __future__ import print_function
 from cbcbeat import *
 import numpy.random
 
@@ -70,7 +71,7 @@ interval = (0.0, T)
 
 # Solve forward problem
 for (timestep, fields) in solver.solve(interval, k):
-    print "(t_0, t_1) = (%g, %g)" % timestep
+    print("(t_0, t_1) = (%g, %g)" % timestep)
     (vs_, vs, vur) = fields
 
 # Define functional of interest

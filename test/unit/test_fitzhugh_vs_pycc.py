@@ -14,6 +14,8 @@ The test was then shortened to T = 1.0, and mesh reduced to 20x20
 
 """
 
+from __future__ import absolute_import
+from __future__ import print_function
 __author__ = "Marie E. Rognes (meg@simula.no), 2012--2014"
 __all__ = []
 
@@ -105,7 +107,7 @@ def test_fitzhugh():
     u = project(vur[1], vur.function_space().sub(1).collapse())
     norm_u = norm(u)
     reference =  10.3756526773
-    print "norm_u = ", norm_u
-    print "reference = ", reference
+    print(("norm_u = ", norm_u))
+    print(("reference = ", reference))
 
     assert_almost_equal(reference, norm_u, 1.e-4)

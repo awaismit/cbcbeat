@@ -2,6 +2,7 @@
 Unit tests for various types of solvers for cardiac cell models.
 """
 
+from __future__ import print_function
 __author__ = "Marie E. Rognes (meg@simula.no), 2013, and Simon W. Funke (simon@simula.no) 2014"
 __all__ = ["TestBidomainSolversAdjoint"]
 

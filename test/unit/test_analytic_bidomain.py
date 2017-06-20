@@ -4,6 +4,8 @@ with an analytic solution to verify the correctness of the basic
 splitting solver.
 """
 
+from __future__ import absolute_import
+from __future__ import print_function
 __author__ = "Marie E. Rognes (meg@simula.no), 2012--2013"
 __all__ = []
 
@@ -91,8 +93,8 @@ def test_analytic_bidomain():
     u_diff = abs(u_error - u_reference)
     tolerance = 1.e-9
     msg = "Maximal %s value does not match reference: diff is %.16e"
-    print "v_error = %.16e" % v_error
-    print "u_error = %.16e" % u_error
+    print(("v_error = %.16e" % v_error))
+    print(("u_error = %.16e" % u_error))
     assert (v_diff < tolerance), msg % ("v", v_diff)
     assert (u_diff < tolerance), msg % ("u", u_diff)
 
@@ -117,10 +119,10 @@ def test_spatial_and_temporal_convergence():
 
     v_rates = convergence_rate(hs, v_errors)
     u_rates = convergence_rate(hs, u_errors)
-    print "v_errors = ", v_errors
-    print "u_errors = ", u_errors
-    print "v_rates = ", v_rates
-    print "u_rates = ", u_rates
+    print(("v_errors = ", v_errors))
+    print(("u_errors = ", u_errors))
+    print(("v_rates = ", v_rates))
+    print(("u_rates = ", u_rates))
 
     assert all(v > 1.9 for v in v_rates), "Failed convergence for v"
     assert all(u > 1.9 for u in u_rates), "Failed convergence for u"

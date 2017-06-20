@@ -3,6 +3,7 @@ This test solves the bidomain equations with an analytic solution to
 verify the correctness of the BidomainSolver.
 """
 
+from __future__ import print_function
 __author__ = "Marie E. Rognes (meg@simula.no), 2013"
 __all__ = []
 
@@ -78,11 +79,11 @@ def test_spatial_convergence():
 
     v_rates = convergence_rate(hs, v_errors)
     u_rates = convergence_rate(hs, u_errors)
-    print "dt, T = ", dt, T
-    print "v_errors = ", v_errors
-    print "u_errors = ", u_errors
-    print "v_rates = ", v_rates
-    print "u_rates = ", u_rates
+    print("dt, T = ", dt, T)
+    print("v_errors = ", v_errors)
+    print("u_errors = ", u_errors)
+    print("v_rates = ", v_rates)
+    print("u_rates = ", u_rates)
 
     assert all(v > 1.99 for v in v_rates), "Failed convergence for v"
     assert all(u > 1.99 for u in u_rates), "Failed convergence for u"
@@ -107,10 +108,10 @@ def test_spatial_and_temporal_convergence():
 
     v_rates = convergence_rate(hs, v_errors)
     u_rates = convergence_rate(hs, u_errors)
-    print "v_errors = ", v_errors
-    print "u_errors = ", u_errors
-    print "v_rates = ", v_rates
-    print "u_rates = ", u_rates
+    print("v_errors = ", v_errors)
+    print("u_errors = ", u_errors)
+    print("v_rates = ", v_rates)
+    print("u_rates = ", u_rates)
 
     assert v_rates[-1] > 1.95, "Failed convergence for v"
     assert u_rates[-1] > 1.9, "Failed convergence for u"

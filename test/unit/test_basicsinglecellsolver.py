@@ -1,6 +1,7 @@
 """
 Unit tests for various types of solvers for cardiac cell models.
 """
+from __future__ import print_function
 __author__ = "Marie E. Rognes (meg@simula.no), 2013"
 __all__ = ["TestCardiacODESolver", "TestBasicSingleCellSolver"]
 
@@ -77,8 +78,8 @@ class TestBasicSingleCellSolver(object):
 
         if Model in self.references and theta in self.references[Model]:
             ind, ref_value = self.references[Model][theta]
-            print "vec_solve", vec_solve.array()
-            print "ind", ind, "ref", ref_value
+            print("vec_solve", vec_solve.array())
+            print("ind", ind, "ref", ref_value)
 
             assert_almost_equal(vec_solve[ind], ref_value, 1e-10)
         else:

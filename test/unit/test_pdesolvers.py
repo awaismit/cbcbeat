@@ -2,6 +2,8 @@
 Unit tests for various types of bidomain solver
 """
 
+from __future__ import absolute_import
+from __future__ import print_function
 __author__ = "Marie E. Rognes (meg@simula.no), 2013"
 __all__ = [""]
 
@@ -203,8 +205,8 @@ class TestBidomainSolver(object):
             (v_, vur) = fields
         basic_bidomain_result = vur.vector().norm("l2")
 
-        print bidomain_result
-        print basic_bidomain_result
+        print(bidomain_result)
+        print(basic_bidomain_result)
         assert_almost_equal(bidomain_result, basic_bidomain_result,
                                1e-13)
 
@@ -242,8 +244,8 @@ class TestBidomainSolver(object):
             (v, u) = vu.split(deepcopy=True)
             b = v.vector().norm("l2")
 
-        print "lu gives ", a
-        print "krylov gives ", b
+        print(("lu gives ", a))
+        print(("krylov gives ", b))
         assert_almost_equal(a, b, 1e-4)
 
 class TestMonodomainSolver(object):
@@ -298,8 +300,8 @@ class TestMonodomainSolver(object):
             (v_, vur) = fields
         basic_monodomain_result = vur.vector().norm("l2")
 
-        print "monodomain_result = ", monodomain_result
-        print "basic_monodomain_result = ", basic_monodomain_result
+        print(("monodomain_result = ", monodomain_result))
+        print(("basic_monodomain_result = ", basic_monodomain_result))
         assert_almost_equal(monodomain_result, basic_monodomain_result,
                                1e-13)
 
@@ -331,6 +333,6 @@ class TestMonodomainSolver(object):
             (v_, v) = fields
             b = v.vector().norm("l2")
 
-        print "lu gives ", a
-        print "krylov gives ", b
+        print(("lu gives ", a))
+        print(("krylov gives ", b))
         assert_almost_equal(a, b, 1e-4)

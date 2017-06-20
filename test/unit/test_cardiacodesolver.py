@@ -1,6 +1,7 @@
 """
 Unit tests for various types of solvers for cardiac cell models.
 """
+from __future__ import print_function
 __author__ = "Marie E. Rognes (meg@simula.no), 2013"
 __all__ = ["TestCardiacODESolver", "TestBasicSingleCellSolver"]
 
@@ -18,7 +19,7 @@ from cbcbeat.cellmodels import *
 
 supported_schemes = ["ForwardEuler", "BackwardEuler", "CrankNicolson",
                      "RK4", "ESDIRK3", "ESDIRK4", "RL1", "RL2", "GRL1", "GRL2"]
-print [Model.__name__ for Model in supported_cell_models]
+print([Model.__name__ for Model in supported_cell_models])
 supported_cell_models_str = [Model.__name__ for Model in supported_cell_models]
 #supported_cell_models_str = ["Tentusscher_2004_mcell"]
 

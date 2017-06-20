@@ -7,6 +7,7 @@ This demo shows how to:
 - How to output the recorded forward solve
 """
 
+from __future__ import print_function
 __author__ = "Marie E. Rognes (meg@simula.no)"
 
 from cbcbeat import *
@@ -55,7 +56,7 @@ def forward():
     values = []
     for ((t0, t1), vs) in solutions:
         times.append(t1)
-        print vs.vector().array()
+        print(vs.vector().array())
     plot(vs[0], interactive=True, title="v")
 
 def replay():

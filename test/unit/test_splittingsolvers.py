@@ -2,6 +2,8 @@
 Unit tests for various types of bidomain solver
 """
 
+from __future__ import absolute_import
+from __future__ import print_function
 __author__ = "Marie E. Rognes (meg@simula.no), 2013"
 __all__ = ["TestSplittingSolver"]
 
@@ -97,10 +99,10 @@ class TestSplittingSolver(object):
         b = vs.vector().norm("l2")
         d = vur.vector().norm("l2")
 
-        print "a, b = ", a, b
-        print "c, d = ", c, d
-        print "a - b = ", (a - b)
-        print "c - d = ", (c - d)
+        print("a, b = ", a, b)
+        print("c, d = ", c, d)
+        print("a - b = ", (a - b))
+        print("c - d = ", (c - d))
 
         # Compare results, discrepancy is in difference in ODE
         # solves.

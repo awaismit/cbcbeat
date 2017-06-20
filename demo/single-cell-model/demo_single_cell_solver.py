@@ -9,6 +9,7 @@
 # * Adjust cardiac cell model parameters (here following the Arevalo
 #   et al, Nature Communications, 2016 set-up
 
+from __future__ import print_function
 __author__ = "Marie E. Rognes (meg@simula.no), 2017"
 
 import math
@@ -41,7 +42,7 @@ class Stimulus(Expression):
 def plot_results(times, values, show=True):
     "Plot the evolution of each variable versus time."
 
-    variables = zip(*values)
+    variables = list(zip(*values))
     pylab.figure(figsize=(20, 10))
 
     rows = int(math.ceil(math.sqrt(len(variables))))
@@ -91,7 +92,7 @@ def main(scenario="default"):
     times = []
     values = []
     for ((t0, t1), vs) in solutions:
-        print "Current time: %g" % t1
+        print("Current time: %g" % t1)
         times.append(t1)
         values.append(vs.vector().array())
 
@@ -102,7 +103,7 @@ def compare_results(times, many_values, legends=(), show=True):
 
     pylab.figure(figsize=(20, 10))
     for values in many_values:
-        variables = zip(*values)
+        variables = list(zip(*values))
         rows = int(math.ceil(math.sqrt(len(variables))))
         for (i, var) in enumerate([variables[0],]):
             #pylab.subplot(rows, rows, i+1)

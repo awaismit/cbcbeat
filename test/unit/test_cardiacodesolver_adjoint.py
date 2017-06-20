@@ -2,6 +2,8 @@
 Unit tests for various types of solvers for cardiac cell models.
 """
 
+from __future__ import print_function
+
 __author__ = "Marie E. Rognes (meg@simula.no), 2013 and Simon W. Funke (simon@simula.no), 2014"
 __all__ = ["TestCardiacODESolverAdjoint"]
 
@@ -178,7 +180,7 @@ class TestCardiacODESolverAdjoint(object):
         info_green("Running forward %s with %s (replay)" % (model, Scheme))
         self._run(solver, ics)
 
-        print solver.solution_fields()[0].vector().array()
+        print(solver.solution_fields()[0].vector().array())
 
         info_green("Replaying")
         success = replay_dolfin(tol=0, stop=True)
