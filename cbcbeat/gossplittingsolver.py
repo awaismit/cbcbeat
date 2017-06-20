@@ -126,7 +126,7 @@ class GOSSplittingSolver:
             kwargs = dict(I_s=stimulus, params=params)
         
         # Propagate enable_adjoint to Bidomain solver
-        if params.has_key("enable_adjoint"):
+        if "enable_adjoint" in params:
             params["enable_adjoint"] = self.parameters["enable_adjoint"]
 
         solver = PDESolver(*args, **kwargs)
