@@ -27,7 +27,7 @@ assumes pure homogeneous Neumann boundary conditions for :math:`v`.
 
 __all__ = ["BasicMonodomainSolver", "MonodomainSolver"]
 
-from dolfinimport import *
+from cbcbeat.dolfinimport import *
 from cbcbeat.markerwisefield import *
 from cbcbeat.utils import end_of_time, annotate_kwargs
 

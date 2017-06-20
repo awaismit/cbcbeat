@@ -7,7 +7,7 @@ __all__ = ["BasicSingleCellSolver",
            "CardiacODESolver",
            "SingleCellSolver"]
 
-from dolfinimport import *
+from cbcbeat.dolfinimport import *
 from cbcbeat import CardiacCellModel, MultiCellModel
 from cbcbeat.markerwisefield import *
 from cbcbeat.utils import state_space, TimeStepper, splat, annotate_kwargs
