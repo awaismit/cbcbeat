@@ -2,13 +2,14 @@
 # Use and modify at will
 # Last changed: 2014-09-12
 
+from __future__ import print_function
 __all__ = ["gotran2cellmodel"]
 
 try:
     import gotran
 
-except Exception, e:
-    print "Gotran not installed. Not possible to convert gotran model to cellmodel."
+except Exception as e:
+    print("Gotran not installed. Not possible to convert gotran model to cellmodel.")
     raise e
 
 # Gotran imports

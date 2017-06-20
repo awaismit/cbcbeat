@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 
+from __future__ import print_function
 import numpy as np
 import os
 
 try:
     import gotran
 
-except Exception, e:
-    print "Gotran not installed. Not possible to convert gotran model to cellmodel."
+except Exception as e:
+    print("Gotran not installed. Not possible to convert gotran model to cellmodel.")
     raise e
 
 from modelparameters.parameterdict import ParameterDict
