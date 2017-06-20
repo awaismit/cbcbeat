@@ -157,7 +157,7 @@ class CellModelGenerator(DOLFINCodeGenerator):
                                           result_name="current")
 
         # Create gotran code component for F(s,t) (dS/dt)
-        F_inds = range(ode.num_full_states)
+        F_inds = list(range(ode.num_full_states))
         F_inds.remove(I_ind)
         F_comp = componentwise_derivative(ode, F_inds, \
                                           generation_params.code, \

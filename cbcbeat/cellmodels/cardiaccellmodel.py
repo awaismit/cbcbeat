@@ -118,7 +118,7 @@ class CardiacCellModel:
 
     def initial_conditions(self):
         "Return initial conditions for v and s as an Expression."
-        return Expression(self._initial_conditions.keys(), degree=1,
+        return Expression(list(self._initial_conditions.keys()), degree=1,
                           **self._initial_conditions)
 
     def parameters(self):
@@ -218,7 +218,7 @@ class MultiCellModel(CardiacCellModel):
         for (k, model) in enumerate(self.models()):
             ic = model.initial_conditions() # Extract initial conditions
             n_k = model.num_states() # Extract number of local states
-            i_k = self.keys()[k] # Extract domain index of cell model k
+            i_k = list(self.keys())[k] # Extract domain index of cell model k
             L_k = sum(ic[j]*v[j]*dy(i_k) for j in range(n_k))
             Ls.append(L_k)
         L = sum(Ls)

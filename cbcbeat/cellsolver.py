@@ -240,7 +240,7 @@ class BasicCardiacODESolver(object):
             n = model.num_states() # Extract number of global states
 
             # Collect contributions to lhs by iterating over the different cell models
-            domains = self._model.keys()
+            domains = list(self._model.keys())
             lhs = list()
             for (k, model_k) in enumerate(model.models()):
                 n_k = model_k.num_states() # Extract number of local (non-trivial) states
